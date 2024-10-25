@@ -1,13 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:gravity="center">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/next_button"
+    <!-- Wybór aktywności -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Przejdź do ankiety" />
-</RelativeLayout>
+        android:text="Wybierz aktywność" />
+
+    <Spinner
+        android:id="@+id/activity_type_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/activity_types"
+        android:minHeight="48dp" />
+
+    <!-- Ustalanie lokalizacji początkowej -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lokalizacja początkowa" />
+
+    <Button
+        android:id="@+id/set_start_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Użyj aktualnej lokalizacji" />
+
+    <!-- Ustalanie lokalizacji końcowej -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lokalizacja końcowa" />
+
+    <Button
+        android:id="@+id/set_end_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Użyj tej samej lokalizacji" />
+
+    <!-- Preferencje trasy -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preferencje trasy" />
+
+    <EditText
+        android:id="@+id/distance_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Odległość (km)"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Poziom trudności" />
+
+    <Spinner
+        android:id="@+id/difficulty_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/difficulty_levels"
+        android:minHeight="48dp" />
+
+    <!-- Atrakcje na trasie -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atrakcje na trasie" />
+
+    <CheckBox
+        android:id="@+id/parks_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parki" />
+
+    <CheckBox
+        android:id="@+id/lakes_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jeziora" />
+
+    <CheckBox
+        android:id="@+id/historic_sites_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zabytki" />
+
+</LinearLayout>

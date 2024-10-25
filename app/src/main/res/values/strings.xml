@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string-array name="activity_types">
+        <item>Spacer</item>
+        <item>Bieg</item>
+        <item>Jazda na rowerze</item>
+    </string-array>
+
+    <string-array name="difficulty_levels">
+        <item>Łatwy</item>
+        <item>Średni</item>
+        <item>Trudny</item>
+    </string-array>
+
 </resources>

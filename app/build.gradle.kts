@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
+
 }
 
 android {
     namespace = "com.example.myapplication"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.myapplication"
@@ -36,3 +38,4 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
