@@ -1,11 +1,18 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import java.util.Arrays;
+import java.util.List;
 
 public class RouteRecommendationActivity extends AppCompatActivity {
     private static final int START_LOCATION_REQUEST = 1;
@@ -16,35 +23,34 @@ public class RouteRecommendationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_recommendation);
 
+        Places.initialize(getApplicationContext(), "");
+
         Button setStartLocationButton = findViewById(R.id.set_start_location_button);
         Button setEndLocationButton = findViewById(R.id.set_end_location_button);
 
-        // Przycisk do ustawienia lokalizacji startowej
-        setStartLocationButton.setOnClickListener(v -> openMapForLocation(START_LOCATION_REQUEST));
-
-        // Przycisk do ustawienia lokalizacji końcowej
-        setEndLocationButton.setOnClickListener(v -> openMapForLocation(END_LOCATION_REQUEST));
+        setStartLocationButton.setOnClickListener(v -> openPlacePicker(START_LOCATION_REQUEST));
+        setEndLocationButton.setOnClickListener(v -> openPlacePicker(END_LOCATION_REQUEST));
     }
 
-    private void openMapForLocation(int requestCode) {
-        Uri gmmIntentUri = Uri.parse("geo:0,0?q=");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(mapIntent, requestCode);
-        }
+    private void openPlacePicker(int requestCode) {
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).build(this);
+        startActivityForResult(intent, requestCode);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Otrzymaj wybraną lokalizację i przypisz ją jako lokalizację startową lub końcową
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data != null) {
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            String locationMessage = "Wybrano lokalizację: " + place.getName();
             if (requestCode == START_LOCATION_REQUEST) {
-                // Zapisz lokalizację startową
+                Toast.makeText(this, "Początkowa: " + locationMessage, Toast.LENGTH_SHORT).show();
             } else if (requestCode == END_LOCATION_REQUEST) {
-                // Zapisz lokalizację końcową
+                Toast.makeText(this, "Końcowa: " + locationMessage, Toast.LENGTH_SHORT).show();
             }
+        } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+            Toast.makeText(this, "Błąd wyboru lokalizacji", Toast.LENGTH_SHORT).show();
         }
     }
 }

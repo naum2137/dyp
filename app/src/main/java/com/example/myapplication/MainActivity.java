@@ -22,5 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, com.example.myapplication.RouteRecommendationActivity.class));
             }
         });
+
+        Button openMapButton = findViewById(R.id.open_map_button);
+        openMapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MapActivity.class);
+            startActivity(intent);
+        });
+
     }
 }
